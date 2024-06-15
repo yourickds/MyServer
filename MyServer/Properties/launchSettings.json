@@ -1,8 +1,7 @@
 {
   "profiles": {
     "MyServer": {
-      "commandName": "Project",
-      "commandLineArgs": "--initialize-configs"
+      "commandName": "Project"
     }
   }
 }

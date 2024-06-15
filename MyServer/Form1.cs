@@ -37,7 +37,7 @@ namespace MyServer
             comboBox2.ValueMember = "Id";
 
             comboBox3.DataSource = Store.Domains;
-            comboBox3.DisplayMember = "Url";
+            comboBox3.DisplayMember = "Name";
             comboBox3.ValueMember = "Id";
         }
         private void ButtonAddModuleForm_Click(object sender, EventArgs e)
@@ -352,7 +352,7 @@ namespace MyServer
             if (comboBox3.SelectedItem != null && comboBox3.SelectedItem is Model.Domains selected)
             {
                 var process = new Process();
-                process.StartInfo.FileName = selected.Url;
+                process.StartInfo.FileName = "http://" + selected.Name;
                 process.StartInfo.UseShellExecute = true;
                 process.Start();
             }

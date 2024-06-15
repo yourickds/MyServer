@@ -9,7 +9,7 @@ namespace MyServer.Model
     public class Domains
     {
         public int Id { get; set; }
-        public required string Url { get; set; }
-        public required bool GenerateVHost { get; set; }
+        public required string Name { get; set; }
+        public string? DirectoryRoot { get; set; }
     }
 }
