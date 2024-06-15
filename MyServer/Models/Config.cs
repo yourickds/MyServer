@@ -10,8 +10,7 @@ namespace MyServer.Model
     {
         public int Id { get; set; }
         public required string Name { get; set; }
-        public required string Path { get; set; }
-        public string? File { get; set; }
+        public required string FilePath { get; set; }
         public string? Argument { get; set; }
         public bool Hidden { get; set; }
         public bool Startup { get; set; }

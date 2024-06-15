@@ -15,5 +15,6 @@ namespace MyServer
         public static BindingList<Config> Startup = [];
         public static BindingList<MyProgram> Programs = [];
         public static BindingList<Bookmark> Bookmarks = [];
+        public static BindingList<Domains> Domains = [];
     }
 }

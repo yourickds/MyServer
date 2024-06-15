@@ -66,11 +66,18 @@
             button12 = new Button();
             label2 = new Label();
             groupBox4 = new GroupBox();
+            button19 = new Button();
+            button18 = new Button();
+            button17 = new Button();
+            button16 = new Button();
+            comboBox3 = new ComboBox();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)moduleBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)moduleBindingSource).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
+            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // openFileDialog1
@@ -421,12 +428,75 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(button19);
+            groupBox4.Controls.Add(button18);
+            groupBox4.Controls.Add(button17);
+            groupBox4.Controls.Add(button16);
+            groupBox4.Controls.Add(comboBox3);
+            groupBox4.Controls.Add(label3);
             groupBox4.Location = new Point(570, 239);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(400, 107);
             groupBox4.TabIndex = 28;
             groupBox4.TabStop = false;
             groupBox4.Text = "Домены";
+            // 
+            // button19
+            // 
+            button19.Location = new Point(187, 66);
+            button19.Name = "button19";
+            button19.Size = new Size(107, 23);
+            button19.TabIndex = 5;
+            button19.Text = "Редактировать";
+            button19.UseVisualStyleBackColor = true;
+            button19.Click += Button19_Click;
+            // 
+            // button18
+            // 
+            button18.Location = new Point(106, 66);
+            button18.Name = "button18";
+            button18.Size = new Size(75, 23);
+            button18.TabIndex = 4;
+            button18.Text = "Удалить";
+            button18.UseVisualStyleBackColor = true;
+            button18.Click += Button18_Click;
+            // 
+            // button17
+            // 
+            button17.Location = new Point(25, 66);
+            button17.Name = "button17";
+            button17.Size = new Size(75, 23);
+            button17.TabIndex = 3;
+            button17.Text = "Добавить";
+            button17.UseVisualStyleBackColor = true;
+            button17.Click += Button17_Click;
+            // 
+            // button16
+            // 
+            button16.Location = new Point(300, 37);
+            button16.Name = "button16";
+            button16.Size = new Size(75, 23);
+            button16.TabIndex = 2;
+            button16.Text = "Открыть";
+            button16.UseVisualStyleBackColor = true;
+            button16.Click += Button16_Click;
+            // 
+            // comboBox3
+            // 
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Location = new Point(25, 37);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(269, 23);
+            comboBox3.TabIndex = 1;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(25, 19);
+            label3.Name = "label3";
+            label3.Size = new Size(44, 15);
+            label3.TabIndex = 0;
+            label3.Text = "Домен";
             // 
             // Form1
             // 
@@ -452,6 +522,8 @@
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -492,5 +564,11 @@
         private Button button13;
         private Button button12;
         private Label label2;
+        private Button button16;
+        private ComboBox comboBox3;
+        private Label label3;
+        private Button button19;
+        private Button button18;
+        private Button button17;
     }
 }

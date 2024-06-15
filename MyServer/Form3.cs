@@ -32,51 +32,41 @@ namespace MyServer
             {
                 if (!String.IsNullOrEmpty(textBox1.Text))
                 {
-                    var folder = new FileInfo(textBox1.Text.Trim());
-                    if (!String.IsNullOrEmpty(folder.DirectoryName))
+                    using (var context = new Configs.DataBase())
                     {
-                        using (var context = new Configs.DataBase())
+                        if (config != null)
                         {
-                            if (config != null)
-                            {
-                                config.Name = textBox2.Text;
-                                config.Path = folder.DirectoryName;
-                                config.Module = this.Module;
-                                config.File = folder.Name;
-                                config.Hidden = checkBox1.Checked;
-                                config.Startup = checkBox2.Checked;
-                                config.Argument = !string.IsNullOrEmpty(textBox3?.Text) ? textBox3.Text.Trim() : null;
-                                context.Entry(config).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                                context.SaveChanges();
-                                var storeConfig = Store.Configs.Single(c => c.Id == config.Id);
-                                storeConfig = config;
-                                Store.Configs.ResetBindings();
-                                Store.Startup.ResetBindings();
-                            }
-                            else
-                            {
-                                var config = new Config()
-                                {
-                                    Name = textBox2.Text,
-                                    Path = folder.DirectoryName,
-                                    Module = this.Module,
-                                    File = folder.Name,
-                                    Hidden = checkBox1.Checked,
-                                    Startup = checkBox2.Checked,
-                                    Argument = !string.IsNullOrEmpty(textBox3?.Text) ? textBox3.Text.Trim() : null
-                                };
-                                context.Modules.Attach(this.Module);
-                                context.Configs.Add(config);
-                                context.SaveChanges();
-                                Store.Configs.Add(config);
-                            }
+                            config.Name = textBox2.Text;
+                            config.FilePath = textBox1.Text.Trim();
+                            config.Module = this.Module;
+                            config.Hidden = checkBox1.Checked;
+                            config.Startup = checkBox2.Checked;
+                            config.Argument = !string.IsNullOrEmpty(textBox3?.Text) ? textBox3.Text.Trim() : null;
+                            context.Entry(config).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                            context.SaveChanges();
+                            var storeConfig = Store.Configs.Single(c => c.Id == config.Id);
+                            storeConfig = config;
+                            Store.Configs.ResetBindings();
+                            Store.Startup.ResetBindings();
                         }
-                        Close();
+                        else
+                        {
+                            var config = new Config()
+                            {
+                                Name = textBox2.Text,
+                                FilePath = textBox1.Text.Trim(),
+                                Module = this.Module,
+                                Hidden = checkBox1.Checked,
+                                Startup = checkBox2.Checked,
+                                Argument = !string.IsNullOrEmpty(textBox3?.Text) ? textBox3.Text.Trim() : null
+                            };
+                            context.Modules.Attach(this.Module);
+                            context.Configs.Add(config);
+                            context.SaveChanges();
+                            Store.Configs.Add(config);
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("Неккоректная директория", "Ошибка");
-                    }
+                    Close();
                 }
                 else
                 {
@@ -100,7 +90,7 @@ namespace MyServer
             if (config != null)
             {
                 textBox2.Text = config.Name;
-                textBox1.Text = config.Path + "\\" + config.File;
+                textBox1.Text = config.FilePath;
                 textBox3.Text = config.Argument;
                 checkBox1.Checked = config.Hidden;
                 checkBox2.Checked = config.Startup;

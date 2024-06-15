@@ -37,12 +37,23 @@ namespace MyServer
 
         public static void InitListBookmarks()
         {
-            // Получаем список всех программ
+            // Получаем список всех закладок (сайты)
             using var context = new Configs.DataBase();
             var bookmarks = context.Bookmarks;
             foreach (var bookmark in bookmarks)
             {
                 Store.Bookmarks.Add(bookmark);
+            }
+        }
+
+        public static void InitListDomains()
+        {
+            // Получаем список всех доменов
+            using var context = new Configs.DataBase();
+            var domains = context.Domains;
+            foreach (var domain in domains)
+            {
+                Store.Domains.Add(domain);
             }
         }
     }

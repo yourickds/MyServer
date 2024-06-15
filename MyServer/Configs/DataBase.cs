@@ -14,5 +14,6 @@ namespace MyServer.Configs
         public DbSet<Config> Configs { get; set; }
         public DbSet<MyProgram> Programs { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<Domains> Domains { get; set; }
     }
 }

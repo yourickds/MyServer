@@ -3,6 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace MyServer
 {
@@ -34,6 +35,10 @@ namespace MyServer
             comboBox2.DataSource = Store.Bookmarks;
             comboBox2.DisplayMember = "Name";
             comboBox2.ValueMember = "Id";
+
+            comboBox3.DataSource = Store.Domains;
+            comboBox3.DisplayMember = "Url";
+            comboBox3.ValueMember = "Id";
         }
         private void ButtonAddModuleForm_Click(object sender, EventArgs e)
         {
@@ -92,7 +97,9 @@ namespace MyServer
             if (ComboBoxConfig.SelectedItem != null && ComboBoxConfig.SelectedItem is Model.Config selected)
             {
                 Store.Startup.Add(selected);
-                EnvironmentPath += selected.Path + ";";
+                string rpath = selected.FilePath.Replace("%myserverdir%", Directory.GetCurrentDirectory());
+                var path = new FileInfo(rpath);
+                EnvironmentPath += path.DirectoryName + ";";
             }
         }
         private void ButtonServer_Click(object sender, EventArgs e)
@@ -116,16 +123,19 @@ namespace MyServer
                 {
                     //MessageBox.Show(config.File);
                     var process = new Process();
-                    process.StartInfo.FileName = config.File;
+                    process.StartInfo.FileName = config.FilePath.Replace("%myserverdir%", Directory.GetCurrentDirectory());
                     process.StartInfo.UseShellExecute = true;
-                    process.StartInfo.Arguments = config.Argument;
+                    if (!String.IsNullOrEmpty(config.Argument))
+                    {
+                        process.StartInfo.Arguments = config.Argument.Replace("%myserverdir%", Directory.GetCurrentDirectory());
+                    }
                     if (config.Hidden)
                         process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     else
                         process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     if (process.Start())
                     {
-                        MessageBox.Show(config.File);
+                        MessageBox.Show(config.FilePath);
                         Processess.Add(process);
                     }
 
@@ -300,6 +310,46 @@ namespace MyServer
         private void Button15_Click(object sender, EventArgs e)
         {
             if (comboBox2.SelectedItem != null && comboBox2.SelectedItem is Model.Bookmark selected)
+            {
+                var process = new Process();
+                process.StartInfo.FileName = selected.Url;
+                process.StartInfo.UseShellExecute = true;
+                process.Start();
+            }
+        }
+
+        private void Button17_Click(object sender, EventArgs e)
+        {
+            var form = new Form6();
+            form.ShowDialog();
+        }
+
+        private void Button18_Click(object sender, EventArgs e)
+        {
+            if (comboBox3.SelectedItem != null && comboBox3.SelectedItem is Model.Domains selected)
+            {
+                Store.Domains.Remove(selected);
+                using var context = new Configs.DataBase();
+                context.Domains.Remove(selected);
+                context.SaveChanges();
+            }
+        }
+
+        private void Button19_Click(object sender, EventArgs e)
+        {
+            if (comboBox3.SelectedItem != null && comboBox3.SelectedItem is Model.Domains selected)
+            {
+                var form = new Form6()
+                {
+                    Domain = selected
+                };
+                form.ShowDialog();
+            }
+        }
+
+        private void Button16_Click(object sender, EventArgs e)
+        {
+            if (comboBox3.SelectedItem != null && comboBox3.SelectedItem is Model.Domains selected)
             {
                 var process = new Process();
                 process.StartInfo.FileName = selected.Url;
